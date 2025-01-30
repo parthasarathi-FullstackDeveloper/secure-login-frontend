@@ -1,0 +1,165 @@
+/* Global reset */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* Flex container for centering */
+.flex {
+  display: flex;
+}
+
+.flex-col {
+  flex-direction: column;
+}
+
+.items-center {
+  align-items: center;
+}
+
+.justify-center {
+  justify-content: center;
+}
+
+.min-h-screen {
+  min-height: 100vh;
+}
+
+/* Background and theme */
+.bg-green-500 {
+  padding: 15px 40px;
+  border: none;
+  margin-right: 150px !important;
+  background-color: #48bb78;
+}
+
+.bg-red-500 {
+  padding: 0px 40px;
+  border: none;
+  /* margin-left: 200px; */
+  background-color: #f56565;
+}
+
+.bg-white {
+  background-color: #fff;
+}
+
+.text-white {
+  color: #fff;
+}
+
+/* Input fields */
+input {
+  padding: 12px 16px;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  width: 100%;
+  margin-bottom: 12px;
+  font-size: 16px;
+  background-color: #fafafa;
+  transition: all 0.3s ease;
+}
+
+/* Input focus state */
+input:focus {
+  outline: none;
+  border-color: #48bb78; /* Green border on focus */
+  box-shadow: 0 0 8px rgba(72, 187, 120, 0.4); /* Soft green glow */
+}
+
+/* Input placeholder styling */
+input::placeholder {
+  color: #aaa; /* Lighter color for placeholder */
+  font-style: italic;
+}
+
+/* Border and shadow effect for active fields */
+input:focus::placeholder {
+  color: transparent; /* Hide placeholder text on focus */
+}
+
+/* Container for form elements */
+.w-full {
+  width: 100%;
+}
+
+/* Button styles */
+button {
+  padding: 12px;
+  border-radius: 8px;
+  font-size: 16px;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+button:hover {
+  opacity: 0.9;
+}
+
+/* Form container */
+.p-4 {
+  padding: 16px;
+}
+
+.max-w-md {
+  max-width: 400px;
+}
+
+/* Shadow and rounded corners */
+.shadow {
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.rounded {
+  border-radius: 8px;
+}
+
+/* Margin and padding adjustments */
+.mb-4 {
+  margin-bottom: 16px;
+}
+
+.mt-4 {
+  margin-top: 16px;
+}
+
+.mr-2 {
+  margin-right: 8px;
+}
+
+.ml-2 {
+  margin-left: 8px;
+}
+
+/* Success and Error message styling */
+.p-2 {
+  padding: 8px;
+}
+
+.text-white {
+  font-size: 14px;
+  font-weight: 600;
+}
+
+/* Profile Image */
+.rounded-full {
+  border-radius: 50%;
+}
+
+.w-24 {
+  width: 6rem;
+}
+
+.h-24 {
+  height: 6rem;
+}
+
+.border-4 {
+  border-width: 4px;
+}
+
+.border-gray-200 {
+  border-color: #e2e8f0;
+}
