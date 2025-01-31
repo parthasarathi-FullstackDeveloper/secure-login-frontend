@@ -12,23 +12,24 @@ const LocationFetcher = () => {
     const navigate = useNavigate();
     const [user, setUser] = useState(null);
     const [loading, setLoading] = useState(true);
-    
-    const getUserRecords = async () => {
-        try {
-            const response = await api.post("api/attendance/getUserByEmail", {
-                email: location.state?.email
-            });
-            setUser(response.data);
-        } catch (e) {
-            console.error("Error fetching user records:", e);
-        } finally {
-            setLoading(false);  // Set loading to false after response or error
-        }
-    };
 
     useEffect(() => {
+        // Define the getUserRecords function inside useEffect
+        const getUserRecords = async () => {
+            try {
+                const response = await api.post("api/attendance/getUserByEmail", {
+                    email: location.state?.email
+                });
+                setUser(response.data);
+            } catch (e) {
+                console.error("Error fetching user records:", e);
+            } finally {
+                setLoading(false);  // Set loading to false after response or error
+            }
+        };
+
         getUserRecords();
-    }, []);
+    }, [location.state?.email]); // Add location.state?.email as a dependency
 
     const [error, setError] = useState(null);
     const [response, setResponse] = useState(null);
@@ -109,7 +110,8 @@ const LocationFetcher = () => {
                 navigate("/react-tables", { state: { employeeEmail: employee.employeeEmail } });
             }
         } catch (error) {
-            setError(error.response?.data?.message || "An error occurred.");
+            console.log(error)
+            setError(error.response?.data || "An error occurred.");
         } finally {
             setLoading(false); // Set loading to false after submitting attendance
         }
@@ -135,7 +137,7 @@ const LocationFetcher = () => {
             {(response || error) && (
                 <p
                     className={`${response ? "bg-green-500" : "bg-red-500"} text-white p-2 rounded`}
-                    style={{ transition: "opacity 0.5s ease-out", marginLeft: "200px", marginBottom: "20px" }}
+                    style={{ transition: "opacity 0.5s ease-out" }}
                 >
                     {response || error}
                 </p>

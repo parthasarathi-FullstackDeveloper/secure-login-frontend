@@ -1,9 +1,9 @@
 import React, { useState } from "react";
-import { useLocation, useNavigate } from "react-router-dom";
-import ApiConstants from "./api/ApiConstants"; // Import the modified ApiConstants
+import { useNavigate } from "react-router-dom";
+import ApiConstants from "./api/ApiConstants";
+
 
 function Login() {
-  const location = useLocation();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState(null);
@@ -13,10 +13,13 @@ function Login() {
     e.preventDefault();
 
     try {
-      const response = await ApiConstants.post(
-        "/auth/login",
-        { username: email, password },
-      );
+
+
+      // Send the encrypted email and password to the server
+      const response = await ApiConstants.post("/auth/login", {
+        email: email,
+        password: password,
+      });
 
       const data = response.data;
 
@@ -27,11 +30,11 @@ function Login() {
         // Navigate to the user page after storing the token
         navigate("/user", { state: { email: email } });
       } else {
-        setError("Invalid credentials. Please try again.");
+        setError(data.message || "Invalid login credentials.");
       }
     } catch (error) {
       console.error("Login failed", error);
-      setError("Something went wrong. Please try again.");
+      setError("An error occurred during login.");
     }
   };
 

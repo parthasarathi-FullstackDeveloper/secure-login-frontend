@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import ApiConstants from "./components/api/ApiConstants";
 
 function Register() {
+  const [username, setUsername] = useState(""); // Add username state
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState(null);
@@ -12,16 +13,22 @@ function Register() {
     e.preventDefault();
 
     try {
+     
+      // Sending username as email and including encrypted email and password in the payload
       const response = await ApiConstants.post(
         "/auth/register",
-        { username: email, password },
+        { 
+          username, 
+          email:email, 
+          password: password
+        }
       );
 
-      const {data} = response;
+      const { data } = response;
 
       if (data) {
-        setError(data); 
-      
+        // Display the error message from the response (if any)
+        setError(data || "Registration failed. Please try again.");
       } else {
         setError("Registration failed. Please try again.");
       }
@@ -37,10 +44,26 @@ function Register() {
         <h2 style={styles.title}>Register</h2>
         <form onSubmit={handleSubmit} style={styles.form}>
           {error && <p style={styles.error}>{error}</p>}
+          
+          {/* Username Input */}
+          <div style={styles.inputGroup}>
+            <label htmlFor="username" style={styles.label}>Employee Name </label>
+            <input
+              type="text"
+              id="username"
+              value={username}
+              onChange={(e) => setUsername(e.target.value)}
+              placeholder="Enter your username"
+              required
+              style={styles.input}
+            />
+          </div>
+          
+          {/* Gmail (Email) Input */}
           <div style={styles.inputGroup}>
             <label htmlFor="email" style={styles.label}>Gmail</label>
             <input
-              type="text"
+              type="email"
               id="email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
@@ -49,6 +72,8 @@ function Register() {
               style={styles.input}
             />
           </div>
+          
+          {/* Password Input */}
           <div style={styles.inputGroup}>
             <label htmlFor="password" style={styles.label}>Password</label>
             <input
@@ -61,13 +86,15 @@ function Register() {
               style={styles.input}
             />
           </div>
+          
           <button type="submit" style={styles.button}>Register</button>
+          
           <button
-style={styles.backToLogin}
-  onClick={() => navigate("/")}
->
-  Back to Login
-</button>
+            style={styles.backToLogin}
+            onClick={() => navigate("/")}
+          >
+            Back to Login
+          </button>
         </form>
       </div>
     </div>
@@ -75,19 +102,19 @@ style={styles.backToLogin}
 }
 
 const styles = {
-    backToLogin:{
-        width: "100%",
-        padding: "12px",
-        fontSize: "16px",
-        fontWeight: "bold",
-        backgroundColor: "#f44336",  // Red color for "Back to Login"
-        color: "white",
-        border: "none",
-        borderRadius: "4px",
-        cursor: "pointer",
-        transition: "background-color 0.3s",
-        marginTop: "10px"
-    },
+  backToLogin: {
+    width: "100%",
+    padding: "12px",
+    fontSize: "16px",
+    fontWeight: "bold",
+    backgroundColor: "#f44336",  // Red color for "Back to Login"
+    color: "white",
+    border: "none",
+    borderRadius: "4px",
+    cursor: "pointer",
+    transition: "background-color 0.3s",
+    marginTop: "10px"
+  },
   container: {
     display: "flex",
     justifyContent: "center",

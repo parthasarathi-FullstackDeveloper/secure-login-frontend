@@ -11,10 +11,13 @@ const ApiConstants = axios.create({
 // Axios request interceptor to add the token to headers for all requests
 ApiConstants.interceptors.request.use(
   (config) => {
-    const token = localStorage.getItem("authToken");
-    if (token) {
-      // Attach token to headers if available
-      config.headers["Authorization"] = `Bearer ${token}`;
+    // Skip adding the token for login and register requests
+    if (!config.url.includes("/auth/login") && !config.url.includes("/auth/register")) {
+      const token = localStorage.getItem("authToken");
+      if (token) {
+        // Attach token to headers if available and not a register/login request
+        config.headers["Authorization"] = `Bearer ${token}`;
+      }
     }
     return config;
   },
